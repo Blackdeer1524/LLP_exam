@@ -2864,18 +2864,18 @@ extern «C» int MAS_FUNC (int *, int);
 
 int main() {
   int *mas, n, k;
-  system(«chcp 1251»);
-  system(«cls»);
-  cout << «Введите размер массива: «;
+  system("chcp 1251");
+  system("cls");
+  cout << "Введите размер массива: ";
   cin >> n;
   mas = new int[n];
-  cout << «Введите элементы массива: « << endl;
+  cout << "Введите элементы массива: " << endl;
   for(int i=0; i<n; i++) {
-    cout << «mas[« << i <<«]= «;
+    cout << "mas[" << i <<"]= ";
     cin >> mas[i];
   }
   k = MAS_FUNC(mas, n);
-  cout << mas[1] << «*2= « << k;
+  cout << mas[1] << "*2= " << k;
   cin.get(); cin.get();
   return 0;
 }
