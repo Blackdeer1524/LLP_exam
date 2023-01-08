@@ -494,7 +494,7 @@ endm
 
 ```asm
 REPT 3
-SHR ax, 1
+  SHR ax, 1
 ENDM
 ```
 
@@ -634,7 +634,7 @@ B EQU N
 Можно использовать точно так же, как и `REPT`, для задания переменных:
 
 ```asm
-IRP arg,\<0,1,2,3\>
+IRP arg,<0,1,2,3>
     db arg
 endm
 ```
@@ -677,7 +677,7 @@ ADD AX, W
 Следующий блок задает строку в памяти, располагая после каждого символа строки атрибут OFh (белый символ на черном фоне), так что эту строку впоследствии можно будет скопировать прямо в видеопамять.
 
 ```asm
-irpc character,\<строка символов\>
+irpc character,<строка символов>
     db '&character&', OFh
 endm
 ```
@@ -1730,7 +1730,7 @@ DB 'B'
 Является экранирующим символом, который нужно подставить перед служебным (типа точки с запятой или угловой скобки), чтобы он означал не своё служебное значение, а часть параметра. Например:
 
 ```asm
-IRP X, \<A!\>B, Hello world!\>
+IRP X, <A!>B,Hello world!>
     DB '&X'
 ENDM
 ```
@@ -1738,7 +1738,7 @@ ENDM
 Оттранслируется в
 
 ```asm
-DB 'A\>B'
+DB 'A>B'
 DB 'Hello world!'
 ```
 
@@ -2476,10 +2476,11 @@ MOV CR0, AX
 LMSW AX/SMSW AX
 ```
 
-Сорс: [wiki](https://en.wikipedia.org/wiki/Protected_mode#Entering_and_exiting_protected_mode)
+Source: [wiki](https://en.wikipedia.org/wiki/Protected_mode#Entering_and_exiting_protected_mode)
 
 To enter protected mode, the Global Descriptor Table (GDT) must first be created with a minimum of three entries: a null descriptor, a code segment descriptor and data segment descriptor. In an IBM-compatible machine, the A20 line (21st address line) also must be enabled to allow the use of all the address lines so that the CPU can access beyond 1 megabyte of memory (Only the first 20 are allowed to be used after power-up, to guarantee compatibility with older software written for the Intel 8088-based IBM PC and PC/XT models).After performing those two steps, the PE bit must be set in the CR0 register and a far jump must be made to clear the prefetch input queue.
 
+```asm
 ; MASM program
 ; enter protected mode (set PE bit)
 mov EBX, CR0   ; save control register 0 (CR0) to EBX
@@ -2489,7 +2490,7 @@ mov CR0, EBX   ; save EBX back to CR0
 ; clear prefetch queue; (using far jump instruction jmp)
 jmp CLEAR_LABEL
 CLEAR_LABEL:
-
+```
 
 # ​Экзаменационный билет №14
 
@@ -2652,15 +2653,15 @@ call some_proc@16
 
 ```asm
 some_proc proc
-push ebp
-mov ebp,esp
-mov eax, [ebp+20] ; a
-mov ebx, [ebp+16] ; b
-mov ecx, [ebp+12] ; c
-mov edx, [ebp+8] ; d
-…
-pop ebp
-ret 16
+  push ebp
+  mov ebp,esp
+  mov eax, [ebp+20] ; a
+  mov ebx, [ebp+16] ; b
+  mov ecx, [ebp+12] ; c
+  mov edx, [ebp+8] ; d
+  …
+  pop ebp
+  ret 16
 some_proc endp
 ```
 
@@ -2668,8 +2669,8 @@ some_proc endp
 
 ```asm
 some_proc proc PASCAL, а:dword, b:dword, с:dword, d:dword
-…
-ret
+  …
+  ret
 some_proc endp
 ```
 
@@ -2695,15 +2696,15 @@ add esp, 16 ; освободить стек
 Вызванная таким образом процедура может инициализироваться так:
 ```asm
 some_proc proc
-push ebp
-mov ebp,esp
-mov eax, [ebp+8] ; a
-mov ebx, [ebp+12] ; b
-mov ecx, [ebp+16] ; c
-mov edx, [ebp+20] ; d
-…
-pop ebp
-ret
+  push ebp
+  mov ebp,esp
+  mov eax, [ebp+8] ; a
+  mov ebx, [ebp+12] ; b
+  mov ecx, [ebp+16] ; c
+  mov edx, [ebp+20] ; d
+  …
+  pop ebp
+  ret
 some_proc endp
 ```
 
@@ -2711,8 +2712,8 @@ some_proc endp
 
 ```asm
 some_proc proc С, а:dword, b:dword, с:dword, d:dword
-…
-ret
+  …
+  ret
 some_proc endp
 ```
 
